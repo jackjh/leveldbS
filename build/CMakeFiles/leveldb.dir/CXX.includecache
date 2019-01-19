@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+..//util/arena.h
+vector
+-
+stdint.h
+-
+
+/home/jack/RD/code/git_push/leveldbS/db/db_imple.cc
+
+/home/jack/RD/code/git_push/leveldbS/util/arena.cc
+util/arena.h
+/home/jack/RD/code/git_push/leveldbS/util/util/arena.h
+
