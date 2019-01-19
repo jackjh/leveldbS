@@ -19,12 +19,12 @@ public:
 
     // Returns an estimate of the total memory usage of data allocated by the arena.
     size_t MemoryUsage() const {
-        return block_memory + blocks_arr.capacity() * sizeof(char*);
+        return blocks_memory + blocks_arr.capacity() * sizeof(char*);
     }
 
 private: 
-    char* Reallocate(size_t size_);
     char* AllocateNewBlock(size_t block_size);
+    char* Reallocate(size_t size_);
 
     char* alloc_ptr;    // the first addr of the remaining alloc bytes
     size_t alloc_bytes_remaining;
@@ -32,7 +32,7 @@ private:
     // Array of new[] allocated memory blocks
     std::vector<char*> blocks_arr;
 
-    size_t block_memory;
+    size_t blocks_memory;
 
     Arena(const Arena&);
     void operator=(const Arena&);
