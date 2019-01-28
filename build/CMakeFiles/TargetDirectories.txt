@@ -1,3 +1,4 @@
 /home/jack/RD/code/git_push/leveldbS/build/CMakeFiles/rebuild_cache.dir
-/home/jack/RD/code/git_push/leveldbS/build/CMakeFiles/leveldb.dir
 /home/jack/RD/code/git_push/leveldbS/build/CMakeFiles/edit_cache.dir
+/home/jack/RD/code/git_push/leveldbS/build/CMakeFiles/leveldb.dir
+/home/jack/RD/code/git_push/leveldbS/build/CMakeFiles/test.dir

@@ -82,3 +82,30 @@ target_sources(leveldb
         "${PROJECT_SOURCE_DIR}/util/arena.cc"
         "${PROJECT_SOURCE_DIR}/util/arena.h"
 )
+
+
+target_include_directories(leveldb
+  PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+
+
+if(LEVELDB_BUILD_TESTS)
+  enable_testing()
+
+  function(leveldb_test test_file)
+    get_filename_component(test_target_name "${test_file}" NAME_WE)
+
+    add_executable("${test_target_name}" "")
+    target_sources("${test_target_name}"
+      PRIVATE
+        "${PROJECT_BINARY_DIR}/util/testharness.cc"
+        "${PROJECT_BINARY_DIR}/util/testharness.h"
+
+        "${test_file}"
+    )
+
+  endfunction(leveldb_test)
+
+endif(LEVELDB_BUILD_TESTS)

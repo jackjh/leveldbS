@@ -2,7 +2,6 @@
 #define LEVELDB_INCLUDE_STATUS_H_
 
 #include <algorithm>
-#include <string>
 #include "leveldb/slice.h"
 
 namespace leveldb {

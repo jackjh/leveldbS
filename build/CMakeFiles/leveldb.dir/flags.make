@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/jack/RD/code/git_push/leveldbS/build/include -I/home/jack/RD/code/git_push/leveldbS 
+CXX_INCLUDES = -I/home/jack/RD/code/git_push/leveldbS/build/include -I/home/jack/RD/code/git_push/leveldbS -I/home/jack/RD/code/git_push/leveldbS/include 
 
