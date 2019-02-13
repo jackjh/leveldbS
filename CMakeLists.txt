@@ -100,12 +100,28 @@ if(LEVELDB_BUILD_TESTS)
     add_executable("${test_target_name}" "")
     target_sources("${test_target_name}"
       PRIVATE
-        "${PROJECT_BINARY_DIR}/util/testharness.cc"
-        "${PROJECT_BINARY_DIR}/util/testharness.h"
+        "${PROJECT_SOURCE_DIR}/util/testharness.cc"
+        "${PROJECT_SOURCE_DIR}/util/testharness.h"
 
         "${test_file}"
     )
-
+    target_link_libraries("${test_target_name}" leveldb)
+    target_compile_definitions("${test_target_name}"
+      PRIVATE
+        LEVELDB_PLATFORM_POSIX=1
+    )
+    if (NOT HAVE_CXX17_HAS_INCLUDE)
+      target_compile_definitions("${test_target_name}"
+        PRIVATE
+          LEVELDB_HAS_PORT_CONFIG_H=1
+      )
+    endif(NOT HAVE_CXX17_HAS_INCLUDE)
+    
+    add_test(NAME "${test_target_name}" COMMAND "${test_target_name}")
   endfunction(leveldb_test)
+  
+  if(NOT BUILD_SHARED_LIBS)
+    leveldb_test("${PROJECT_SOURCE_DIR}/util/arena_test.cc")
+  endif(NOT BUILD_SHARED_LIBS)
 
 endif(LEVELDB_BUILD_TESTS)
