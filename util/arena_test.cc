@@ -1,5 +1,6 @@
 #include "util/arena.h"
 #include "util/testharness.h"
+#include "util/random.h"
 
 namespace leveldb {
 
@@ -10,7 +11,9 @@ TEST(ArenaTest, Empty) {
 }
 
 TEST(ArenaTest, SimpleAllocate) {
-    
+    Arena arena;
+    const int N = 100000;
+    Random ran(301);
 }
 
 }

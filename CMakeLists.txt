@@ -81,6 +81,7 @@ target_sources(leveldb
         "${PROJECT_SOURCE_DIR}/db/db_imple.h"
         "${PROJECT_SOURCE_DIR}/util/arena.cc"
         "${PROJECT_SOURCE_DIR}/util/arena.h"
+        "${PROJECT_SOURCE_DIR}/util/random.h"
 )
 
 
