@@ -58,6 +58,15 @@ int RunAllTests() {
     return 0;
 }
 
+int RandomSeed() {
+    const char* env = getenv("TEST_RANDOM_SEED");
+    int ret = (env != nullptr) ? atoi(env) : 301;
+    if(ret <= 0) {
+        ret = 301;
+    }
+    return ret;
+}
+
 
 }
 

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libleveldb.a  CMakeFiles/leveldb.dir/db/db_imple.cc.o CMakeFiles/leveldb.dir/util/arena.cc.o
-/usr/bin/ranlib libleveldb.a

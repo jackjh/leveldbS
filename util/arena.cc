@@ -45,9 +45,14 @@ char* Arena::Reallocate(size_t size_) {
 
 char* Arena::AllocateAligned(size_t size_) {
     const int align = (sizeof(void*) > 8) ? sizeof(void*) : 8;
+
+    // pointer size should be a power of 2 (2的整数次幂的二进制表示中有且只有一位是1)
     assert((align & (align - 1)) == 0);
 
+    // (alloc_ptr) & (align - 1) ==> alloc_ptr % align
     size_t current_mod = reinterpret_cast<uintptr_t>(alloc_ptr) & (align - 1);
+
+    // slop: additional(new) size is required to align memory
     size_t slop = (current_mod == 0 ? 0 : align - current_mod);
     size_t needed = size_ + slop;
 
