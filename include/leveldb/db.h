@@ -14,7 +14,9 @@ public:
 
     static Status Open(const Options& options, const std::string& dbName, DB** dbPtr);
 
-    //virtual Status Put()
+    virtual Status Put(const WriteOptions& wOptions, const Slice& key, const Slice& value) = 0;
+
+    virtual Status Get(const ReadOptions& rOptions, const Slice& key, std::string* value) = 0;
 
 private: 
     DB(const DB&);
