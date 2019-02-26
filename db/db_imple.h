@@ -7,8 +7,15 @@
 namespace leveldb {
 
 class DBImple : public DB {
-    DBImple(const std::string& dbName);
-    virtual ~DBImple();
+public: 
+    DBImple(const Options& options, const std::string& dbName) { }
+    virtual ~DBImple() { }
+
+    //virtual Status 
+
+private:
+    DBImple(const DBImple&);
+    void operator=(const DBImple&);
 };
 
 }

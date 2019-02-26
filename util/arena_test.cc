@@ -13,7 +13,7 @@ TEST(ArenaTest, Empty) {
 TEST(ArenaTest, SimpleAllocate) {
     Arena arena;
     std::vector<std::pair<size_t, char*> > allocated;
-    const int N = 100000;
+    const int N = 10000;
     Random rand(301);
     size_t bytes = 0;
     for(int i=0; i<N; i++) {
@@ -38,6 +38,14 @@ TEST(ArenaTest, SimpleAllocate) {
         bytes += s;
         allocated.push_back(std::make_pair(s, buf));
         ASSERT_GEQ(arena.MemoryUsage(), bytes);
+    }
+
+    for(size_t i = 0; i < allocated.size(); i++) {
+        size_t numBytes = allocated[i].first;
+        const char* p = allocated[i].second;
+        for(size_t j = 0; j < numBytes; j++) {
+            ASSERT_EQ(int(p[j]) & 0xff, i % 256);
+        }
     }
 }
 
