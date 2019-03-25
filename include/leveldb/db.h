@@ -9,7 +9,7 @@ namespace leveldb {
 
 class DB {
 public:
-    DB() { }
+    DB() = default;
     virtual ~DB() { }
 
     static Status Open(const Options& options, const std::string& dbName, DB** dbPtr);
