@@ -79,6 +79,9 @@ target_sources(leveldb
     PRIVATE
         "${PROJECT_SOURCE_DIR}/db/db_imple.cc"
         "${PROJECT_SOURCE_DIR}/db/db_imple.h"
+        "${PROJECT_SOURCE_DIR}/db/db_format.h"
+        "${PROJECT_SOURCE_DIR}/db/version_edit.h"
+        "${PROJECT_SOURCE_DIR}/db/version_set.h"
         "${PROJECT_SOURCE_DIR}/util/arena.cc"
         "${PROJECT_SOURCE_DIR}/util/arena.h"
         "${PROJECT_SOURCE_DIR}/util/random.h"
