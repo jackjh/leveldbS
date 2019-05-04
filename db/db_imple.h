@@ -17,6 +17,8 @@ public:
 
     virtual Status Get(const ReadOptions& rOptions, const Slice& key, std::string* value); 
 
+    
+
 private:
     friend class DB;
     port::Mutex mu;

@@ -1,6 +1,9 @@
 #ifndef LEVELDB_DB_DB_FORMAT_H_
 #define LEVELDB_DB_DB_FORMAT_H_
 
+#include <string>
+#include "leveldb/slice.h"
+
 namespace leveldb {
 
 namespace config {
@@ -21,6 +24,69 @@ static const int KL0StopWritesTrigger = 12;
 static const int KMaxMemtableCompactLevel = 2;
 
 }
+
+enum ValueType {
+    kTypeDeletion = 0x0,
+    kTypeValue = 0x1
+};
+
+typedef uint64_t SequenceNumber;
+
+struct ParsedInternalKey {
+    Slice userKey;
+    SequenceNumber seqNum;
+    ValueType valType;
+
+    ParsedInternalKey() { }
+
+    ParsedInternalKey(const Slice& u_key, SequenceNumber s_num, ValueType type)
+            : userKey(u_key), seqNum(s_num), valType(type) {
+        
+    }
+};
+
+// insert the key into the record
+void AppendInternalKey(std::string* record, const ParsedInternalKey& key);
+
+inline Slice ExtractUserKey(const Slice& internal_key) {
+    assert(internal_key.size() >= 8);
+    return Slice(internal_key.data(), internal_key.size() - 8);
+}
+
+/*
+** InternalKey::record  => 
+** | user key (string) | sequence number (7-bytes) | value type (1-byte) |
+*/
+class InternalKey {
+private: 
+    std::string record;
+
+public:
+    InternalKey() { }
+    InternalKey(const Slice& userKey, SequenceNumber seq, ValueType valType) {
+        AppendInternalKey(&record, ParsedInternalKey(userKey, seq, valType));
+    }
+
+    void SetKeyFromStart(const ParsedInternalKey& key) {
+        record.clear();
+        AppendInternalKey(&record, key);
+    }
+
+    Slice UserKey() {
+        return ExtractUserKey(record);
+    }
+
+    Slice Encode() {
+        assert(!record.empty());
+        return record;
+    }
+
+    void Decode(const Slice& s) {
+        record.assign(s.data(), s.size());
+    }
+
+    void Clear() { record.clear(); }
+};
 
 }
 

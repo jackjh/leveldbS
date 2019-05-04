@@ -131,6 +131,7 @@ if(LEVELDB_BUILD_TESTS)
   if(NOT BUILD_SHARED_LIBS)
     leveldb_test("${PROJECT_SOURCE_DIR}/util/arena_test.cc")
     leveldb_test("${PROJECT_SOURCE_DIR}/db/db_imple_test.cc")
+    leveldb_test("${PROJECT_SOURCE_DIR}/db/version_edit_test.cc")
   endif(NOT BUILD_SHARED_LIBS)
 
 endif(LEVELDB_BUILD_TESTS)
