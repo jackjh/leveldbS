@@ -3,7 +3,8 @@
 
 #include <string>
 #include "leveldb/status.h"
-#include "leveldb/slice.h"
+#include "db/db_format.h"
+#include "db/memtable.h"
 
 namespace leveldb {
 
@@ -25,7 +26,18 @@ public:
     // clear all updates buffered in this batch
     void Clear();
 
-    void Size();
+    size_t BatchSize();
+
+    void Append(const WriteBatch& src);
+
+    class Handler {
+    public: 
+        SequenceNumber sequence;
+        MemTable* mem;
+
+        void Put(const Slice& key, const Slice& value);
+        void Delete(const Slice& key);
+    };    
 
 private: 
     std::string record;

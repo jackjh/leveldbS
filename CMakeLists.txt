@@ -82,6 +82,9 @@ target_sources(leveldb
         "${PROJECT_SOURCE_DIR}/db/db_format.h"
         "${PROJECT_SOURCE_DIR}/db/version_edit.h"
         "${PROJECT_SOURCE_DIR}/db/version_set.h"
+        "${PROJECT_SOURCE_DIR}/db/write_batch.cc"
+        "${PROJECT_SOURCE_DIR}/db/skiplist.h"
+        "${PROJECT_SOURCE_DIR}/db/memtable.h"
         "${PROJECT_SOURCE_DIR}/util/arena.cc"
         "${PROJECT_SOURCE_DIR}/util/arena.h"
         "${PROJECT_SOURCE_DIR}/util/random.h"
@@ -132,6 +135,8 @@ if(LEVELDB_BUILD_TESTS)
     leveldb_test("${PROJECT_SOURCE_DIR}/util/arena_test.cc")
     leveldb_test("${PROJECT_SOURCE_DIR}/db/db_imple_test.cc")
     leveldb_test("${PROJECT_SOURCE_DIR}/db/version_edit_test.cc")
+    leveldb_test("${PROJECT_SOURCE_DIR}/db/write_batch_test.cc")
+    leveldb_test("${PROJECT_SOURCE_DIR}/db/skiplist_test.cc")
   endif(NOT BUILD_SHARED_LIBS)
 
 endif(LEVELDB_BUILD_TESTS)
