@@ -85,11 +85,14 @@ target_sources(leveldb
         "${PROJECT_SOURCE_DIR}/db/write_batch.cc"
         "${PROJECT_SOURCE_DIR}/db/skiplist.h"
         "${PROJECT_SOURCE_DIR}/db/memtable.h"
+        "${PROJECT_SOURCE_DIR}/db/memtable.cc"
         "${PROJECT_SOURCE_DIR}/util/arena.cc"
         "${PROJECT_SOURCE_DIR}/util/arena.h"
         "${PROJECT_SOURCE_DIR}/util/random.h"
         "${PROJECT_SOURCE_DIR}/util/options.cc"
         "${PROJECT_SOURCE_DIR}/util/mutexlock.h"
+        "${PROJECT_SOURCE_DIR}/util/coding.h"
+        "${PROJECT_SOURCE_DIR}/util/coding.cc"
         "${PROJECT_SOURCE_DIR}/port/port_stdcxx.h"
 
 )
@@ -133,6 +136,8 @@ if(LEVELDB_BUILD_TESTS)
   
   if(NOT BUILD_SHARED_LIBS)
     leveldb_test("${PROJECT_SOURCE_DIR}/util/arena_test.cc")
+    leveldb_test("${PROJECT_SOURCE_DIR}/util/coding_test.cc")
+
     leveldb_test("${PROJECT_SOURCE_DIR}/db/db_imple_test.cc")
     leveldb_test("${PROJECT_SOURCE_DIR}/db/version_edit_test.cc")
     leveldb_test("${PROJECT_SOURCE_DIR}/db/write_batch_test.cc")

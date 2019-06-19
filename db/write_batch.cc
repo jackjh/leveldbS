@@ -15,4 +15,12 @@ void WriteBatch::Clear() {
     record.resize(kHeader);
 }
 
+void WriteBatch::Handler::Put(const Slice& key, const Slice& value) {
+
+}
+
+void WriteBatch::Handler::Delete(const Slice& key) {
+    
+}
+
 }
