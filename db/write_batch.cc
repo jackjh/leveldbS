@@ -16,11 +16,13 @@ void WriteBatch::Clear() {
 }
 
 void WriteBatch::Handler::Put(const Slice& key, const Slice& value) {
-
+    mem->Add(sequence, kTypeValue, key, value);
+    sequence++;
 }
 
 void WriteBatch::Handler::Delete(const Slice& key) {
-    
+    mem->Add(sequence, kTypeDeletion, key, Slice());
+    sequence++;
 }
 
 }

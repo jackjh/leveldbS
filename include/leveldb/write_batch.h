@@ -37,9 +37,27 @@ public:
 
         void Put(const Slice& key, const Slice& value);
         void Delete(const Slice& key);
-    };    
+    };
+
+    Status Iterate(Handler* handler) const;
+
+private:
+    // return the number of the entries in this batch
+    static int Count(WriteBatch* batch);
+
+    // set the count for the number of the entries in this batch
+    static void SetCount(WriteBatch* batch, int n);
 
 private: 
+/*
+**  Put(Slice& key, Slice& value);
+** the format of the WriteBatch::record is :
+** sequence (8-bytes) | count(the num of the entries in the batch) (4-bytes) | data[count]
+**
+** the data[count] :  kTypeValue | key.size() | key.data() | value.size() | value.data()  
+**            or :    kTypeDeletion | key.size() | key.data()
+*/
+
     std::string record;
 };
 

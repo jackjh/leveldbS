@@ -25,12 +25,18 @@ static const int KMaxMemtableCompactLevel = 2;
 
 }
 
+class InternalKey;
+
 enum ValueType {
     kTypeDeletion = 0x0,
     kTypeValue = 0x1
 };
 
 typedef uint64_t SequenceNumber;
+
+static const ValueType valueTypeSeek = kTypeValue;
+
+static const SequenceNumber maxSequenceNumber = ((0x1ull << 56) - 1);
 
 struct ParsedInternalKey {
     Slice userKey;
@@ -53,6 +59,15 @@ inline Slice ExtractUserKey(const Slice& internal_key) {
     return Slice(internal_key.data(), internal_key.size() - 8);
 }
 
+struct InternalKeyCompactor {
+public: 
+    InternalKeyCompactor() { }
+    const char* Name();
+    int Compare(const Slice& a, const Slice& b) const;
+    void FindShortestSeparator(std::string* start, const Slice& limit);
+    int Compare(const InternalKey& a, const InternalKey& b) const;
+};
+
 /*
 ** InternalKey::record  => 
 ** | user key (string) | sequence number (7-bytes) | value type (1-byte) |
@@ -72,11 +87,11 @@ public:
         AppendInternalKey(&record, key);
     }
 
-    Slice UserKey() {
+    Slice UserKey() const {
         return ExtractUserKey(record);
     }
 
-    Slice Encode() {
+    Slice Encode() const {
         assert(!record.empty());
         return record;
     }

@@ -14,11 +14,14 @@ public:
     void Add(SequenceNumber sequence, ValueType type, const Slice& key, const Slice& value);
 
 private: 
-    struct KeyComparator {
-
+    struct KeyCompactor {
+        const InternalKeyCompactor compactor;
+        explicit KeyCompactor(const InternalKeyCompactor& comp) : compactor(comp) { }
+        int operator()(const char* a, const char* b) const;
     };
 
-    typedef SkipList<const char*, KeyComparator> Table;
+    typedef SkipList<const char*, KeyCompactor> Table;
+    Arena arena;
     Table table;
 
     MemTable(const MemTable&);
