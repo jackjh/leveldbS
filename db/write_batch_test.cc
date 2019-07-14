@@ -6,7 +6,7 @@ namespace leveldb {
 class WriteBatchTest { };
 
 TEST(WriteBatchTest, empty_constructor) {
-    WriteBatch batch;
+    WriteBatchS batch;
 }
 
 }   // namespace leveldb

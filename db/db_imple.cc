@@ -33,4 +33,10 @@ Status DB::Open(const Options& options, const std::string& dbName, DB** dbPtr) {
     return s;
 }
 
+Status DBImple::Write(const WriteOptions& options, WriteBatchS* batch) {
+    Status s;
+
+    return s;
+}
+
 }

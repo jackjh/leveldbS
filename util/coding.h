@@ -10,7 +10,7 @@ namespace leveldb {
 
 // convert value to little endian
 extern void EncodeFixed32(char* buf, uint32_t value);
-extern void EncodeFixed64(char* buf, uint32_t value);
+extern void EncodeFixed64(char* buf, uint64_t value);
 
 // append the value(EncodeFixed) into the dst
 extern void PutFixed32(std::string* dst, uint32_t value);

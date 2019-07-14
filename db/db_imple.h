@@ -17,7 +17,7 @@ public:
 
     virtual Status Get(const ReadOptions& rOptions, const Slice& key, std::string* value); 
 
-    
+    virtual Status Write(const WriteOptions& options, WriteBatchS* batch);
 
 private:
     friend class DB;

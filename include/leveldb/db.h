@@ -7,6 +7,11 @@
 
 namespace leveldb {
 
+struct Options;
+struct ReadOptions;
+struct WriteOptions;
+class WriteBatchS;
+
 class DB {
 public:
     DB() = default;
@@ -17,6 +22,8 @@ public:
     virtual Status Put(const WriteOptions& wOptions, const Slice& key, const Slice& value) = 0;
 
     virtual Status Get(const ReadOptions& rOptions, const Slice& key, std::string* value) = 0;
+
+    virtual Status Write(const WriteOptions& wOptions, WriteBatchS* batch) = 0;
 
 private: 
     DB(const DB&);

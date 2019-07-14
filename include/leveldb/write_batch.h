@@ -1,5 +1,5 @@
-#ifndef LEVELDB_INCLUDE_WRITE_BATCH_H_
-#define LEVELDB_INCLUDE_WRITE_BATCH_H_
+#ifndef LEVELDB_INCLUDE_WRITE_BATCH_S_H_
+#define LEVELDB_INCLUDE_WRITE_BATCH_S_H_
 
 #include <string>
 #include "leveldb/status.h"
@@ -8,14 +8,14 @@
 
 namespace leveldb {
 
-class WriteBatch {
+class WriteBatchS {
 public:
-    WriteBatch();
+    WriteBatchS();
 
-    WriteBatch(const WriteBatch&) = default;
-    WriteBatch& operator =(const WriteBatch&) = default;
+    WriteBatchS(const WriteBatchS&) = default;
+    WriteBatchS& operator =(const WriteBatchS&) = default;
 
-    ~WriteBatch();
+    ~WriteBatchS() { }
 
     // insert the mapping "key->value" into the database
     void Put(const Slice& key, const Slice& value);
@@ -26,9 +26,9 @@ public:
     // clear all updates buffered in this batch
     void Clear();
 
-    size_t BatchSize();
+    size_t BatchSSize();
 
-    void Append(const WriteBatch& src);
+    void Append(const WriteBatchS& src);
 
     class Handler {
     public: 
@@ -41,14 +41,18 @@ public:
 
     Status Iterate(Handler* handler) const;
 
-private:
+protected:
     // return the number of the entries in this batch
-    static int Count(WriteBatch* batch);
+    int Count(const WriteBatchS* batch);
 
     // set the count for the number of the entries in this batch
-    static void SetCount(WriteBatch* batch, int n);
+    void SetCount(WriteBatchS* batch, int n);
 
-private: 
+    SequenceNumber Sequence(const WriteBatchS* batch);
+
+    void SetSequenceNumber(WriteBatchS* batch, SequenceNumber seq);
+
+private:
 /*
 **  Put(Slice& key, Slice& value);
 ** the format of the WriteBatch::record is :

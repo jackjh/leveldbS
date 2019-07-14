@@ -76,26 +76,31 @@ endif(BUILD_SHARED_LIBS)
 
 add_library(leveldb "")
 target_sources(leveldb
-    PRIVATE
-        "${PROJECT_SOURCE_DIR}/db/db_imple.cc"
-        "${PROJECT_SOURCE_DIR}/db/db_imple.h"
-        "${PROJECT_SOURCE_DIR}/db/db_format.cc"
-        "${PROJECT_SOURCE_DIR}/db/db_format.h"
-        "${PROJECT_SOURCE_DIR}/db/version_edit.h"
-        "${PROJECT_SOURCE_DIR}/db/version_set.h"
-        "${PROJECT_SOURCE_DIR}/db/write_batch.cc"
-        "${PROJECT_SOURCE_DIR}/db/skiplist.h"
-        "${PROJECT_SOURCE_DIR}/db/memtable.h"
-        "${PROJECT_SOURCE_DIR}/db/memtable.cc"
-        "${PROJECT_SOURCE_DIR}/util/arena.cc"
-        "${PROJECT_SOURCE_DIR}/util/arena.h"
-        "${PROJECT_SOURCE_DIR}/util/random.h"
-        "${PROJECT_SOURCE_DIR}/util/options.cc"
-        "${PROJECT_SOURCE_DIR}/util/mutexlock.h"
-        "${PROJECT_SOURCE_DIR}/util/coding.h"
-        "${PROJECT_SOURCE_DIR}/util/coding.cc"
-        "${PROJECT_SOURCE_DIR}/port/port_stdcxx.h"
+  PRIVATE
+    "${PROJECT_SOURCE_DIR}/db/db_imple.cc"
+    "${PROJECT_SOURCE_DIR}/db/db_imple.h"
+    "${PROJECT_SOURCE_DIR}/db/db_format.cc"
+    "${PROJECT_SOURCE_DIR}/db/db_format.h"
+    "${PROJECT_SOURCE_DIR}/db/version_edit.h"
+    "${PROJECT_SOURCE_DIR}/db/version_set.h"
+    "${PROJECT_SOURCE_DIR}/db/write_batch.cc"
+    "${PROJECT_SOURCE_DIR}/db/skiplist.h"
+    "${PROJECT_SOURCE_DIR}/db/memtable.h"
+    "${PROJECT_SOURCE_DIR}/db/memtable.cc"
+    "${PROJECT_SOURCE_DIR}/util/arena.cc"
+    "${PROJECT_SOURCE_DIR}/util/arena.h"
+    "${PROJECT_SOURCE_DIR}/util/random.h"
+    "${PROJECT_SOURCE_DIR}/util/options.cc"
+    "${PROJECT_SOURCE_DIR}/util/mutexlock.h"
+    "${PROJECT_SOURCE_DIR}/util/coding.h"
+    "${PROJECT_SOURCE_DIR}/util/coding.cc"
+    "${PROJECT_SOURCE_DIR}/port/port_stdcxx.h"
 
+    "${LEVELDB_PUBLIC_INCLUDE_DIR}/db.h"
+    "${LEVELDB_PUBLIC_INCLUDE_DIR}/options.h"
+    "${LEVELDB_PUBLIC_INCLUDE_DIR}/slice.h"
+    "${LEVELDB_PUBLIC_INCLUDE_DIR}/status.h"
+    "${LEVELDB_PUBLIC_INCLUDE_DIR}/write_batch.h"
 )
 
 
@@ -146,3 +151,16 @@ if(LEVELDB_BUILD_TESTS)
   endif(NOT BUILD_SHARED_LIBS)
 
 endif(LEVELDB_BUILD_TESTS)
+
+if(LEVELDB_INSTALL)
+  include(GNUInstallDirs)
+  install(
+    FILES
+      "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/db.h"
+      "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/options.h"
+      "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/slice.h"
+      "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/status.h"
+      "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/write_batch.h"
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/leveldb
+  )
+endif(LEVELDB_INSTALL)

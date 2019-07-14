@@ -1,26 +1,41 @@
 #include "leveldb/write_batch.h"
+#include "util/coding.h"
 
 namespace leveldb {
 
-const static size_t kHeader = 12;
+static const size_t kHeader = 12;
 
-WriteBatch::WriteBatch() {
+WriteBatchS::WriteBatchS() {
     Clear();
 }
 
-WriteBatch::~WriteBatch() { }
-
-void WriteBatch::Clear() {
+void WriteBatchS::Clear() {
     record.clear();
     record.resize(kHeader);
 }
 
-void WriteBatch::Handler::Put(const Slice& key, const Slice& value) {
+int WriteBatchS::Count(const WriteBatchS* batch) {
+    return DecodeFixed32(batch->record.data() + 8);
+}
+
+void WriteBatchS::SetCount(WriteBatchS* batch, int n) {
+    EncodeFixed32(&batch->record[8], n);
+}
+
+SequenceNumber WriteBatchS::Sequence(const WriteBatchS* batch) {
+    return SequenceNumber(DecodeFixed64(batch->record.data()));
+}
+
+void WriteBatchS::SetSequenceNumber(WriteBatchS* batch, SequenceNumber seq) {
+    EncodeFixed64(&batch->record[0], seq);
+}
+
+void WriteBatchS::Handler::Put(const Slice& key, const Slice& value) {
     mem->Add(sequence, kTypeValue, key, value);
     sequence++;
 }
 
-void WriteBatch::Handler::Delete(const Slice& key) {
+void WriteBatchS::Handler::Delete(const Slice& key) {
     mem->Add(sequence, kTypeDeletion, key, Slice());
     sequence++;
 }
