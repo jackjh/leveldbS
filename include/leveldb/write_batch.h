@@ -41,16 +41,19 @@ public:
 
     Status Iterate(Handler* handler) const;
 
-protected:
+    Status InsertInto(MemTable* mem);
+
     // return the number of the entries in this batch
-    int Count(const WriteBatchS* batch);
+    int Count() const;
 
     // set the count for the number of the entries in this batch
-    void SetCount(WriteBatchS* batch, int n);
+    void SetCount(int n);
 
-    SequenceNumber Sequence(const WriteBatchS* batch);
+    SequenceNumber Sequence() const;
 
-    void SetSequenceNumber(WriteBatchS* batch, SequenceNumber seq);
+    void SetSequenceNumber(SequenceNumber seq);
+    
+    Slice BatchContents();
 
 private:
 /*

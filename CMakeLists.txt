@@ -90,6 +90,7 @@ target_sources(leveldb
     "${PROJECT_SOURCE_DIR}/util/arena.cc"
     "${PROJECT_SOURCE_DIR}/util/arena.h"
     "${PROJECT_SOURCE_DIR}/util/random.h"
+    "${PROJECT_SOURCE_DIR}/util/status.cc"
     "${PROJECT_SOURCE_DIR}/util/options.cc"
     "${PROJECT_SOURCE_DIR}/util/mutexlock.h"
     "${PROJECT_SOURCE_DIR}/util/coding.h"

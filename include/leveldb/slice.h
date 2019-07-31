@@ -40,7 +40,7 @@ public:
         _size = 0;
     }
 
-    void RemovPrefix(size_t n) {
+    void RemovePrefix(size_t n) {
         assert(n < _size);
         _data += n;
         _size -= n;

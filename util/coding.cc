@@ -191,7 +191,7 @@ bool GetLenPreFixedSlice(Slice* input, Slice* res) {
     bool flag = GetVarint32(input, &len);
     if(flag && input->size() >= len) {
         *res = Slice(input->data(), len);
-        input->RemovPrefix(len);
+        input->RemovePrefix(len);
         return true;
     }
     else {

@@ -23,6 +23,9 @@ private:
     friend class DB;
     port::Mutex mu;
 
+    struct Writer;
+    
+
     DBImple(const DBImple&);
     void operator=(const DBImple&);
 };
