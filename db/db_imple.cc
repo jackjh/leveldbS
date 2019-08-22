@@ -1,7 +1,18 @@
 #include "db/db_imple.h"
 #include "port/port_stdcxx.h"
+#include "db/write_batch.cc"
 
 namespace leveldb {
+
+struct DBImple::Writer {
+    WriteBatchS* batch;
+    Status status;
+    bool sync;
+    bool done;
+    port::CondVar cv;
+
+    explicit Writer(port::Mutex* mu) : cv(mu) { }
+};
 
 DBImple::DBImple(const Options& options, const std::string& dbName) {
 
@@ -22,9 +33,10 @@ Status DBImple::Get(const ReadOptions& rOptions, const Slice& key, std::string* 
 }
 
 Status DB::Put(const WriteOptions& wOptions, const Slice& key, const Slice& value) {
-    Status s;
+    WriteBatchS batch;
+    batch.Put(key, value);
 
-    return s;
+    return Write(wOptions, &batch);
 }
 
 Status DB::Open(const Options& options, const std::string& dbName, DB** dbPtr) {
@@ -35,6 +47,14 @@ Status DB::Open(const Options& options, const std::string& dbName, DB** dbPtr) {
 
 Status DBImple::Write(const WriteOptions& options, WriteBatchS* batch) {
     Status s;
+    uint64_t lastSequence;
+
+    // get the current sequenceNumber
+    // lastSequence = 
+
+    if(batch != nullptr) {
+
+    }
 
     return s;
 }
