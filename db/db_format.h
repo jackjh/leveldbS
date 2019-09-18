@@ -34,6 +34,14 @@ enum ValueType {
 
 typedef uint64_t SequenceNumber;
 
+/*
+struct global_seqNum {
+    SequenceNumber sequence;
+};
+
+global_seqNum g_sequence_num;
+*/
+
 static const ValueType valueTypeSeek = kTypeValue;
 
 static const SequenceNumber maxSequenceNumber = ((0x1ull << 56) - 1);

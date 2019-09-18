@@ -1,6 +1,7 @@
 #include "db/db_imple.h"
 #include "port/port_stdcxx.h"
 #include "db/write_batch.cc"
+#include "util/mutexlock.h"
 
 namespace leveldb {
 
@@ -50,10 +51,9 @@ Status DBImple::Write(const WriteOptions& options, WriteBatchS* batch) {
     uint64_t lastSequence;
 
     // get the current sequenceNumber
-    // lastSequence = 
-
+    lastSequence = options.g_sequence_number;
     if(batch != nullptr) {
-
+        batch->SetSequenceNumber(lastSequence + 1);
     }
 
     return s;

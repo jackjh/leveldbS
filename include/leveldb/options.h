@@ -2,6 +2,7 @@
 #define LEVELDB_INCLUDE_OPTIONS_H_
 
 #include <stddef.h>
+#include <stdint.h>
 
 namespace leveldb {
 
@@ -48,6 +49,7 @@ struct Options {
 
     compressionType compression;
 
+
     //const FilterPolicy* filter_policy;
 
     Options();
@@ -66,7 +68,11 @@ struct ReadOptions {
 
 struct WriteOptions {
     bool sync;
-    WriteOptions() : sync(false) { }
+
+    // sequence number ------ global var
+    uint64_t g_sequence_number;
+
+    WriteOptions() : sync(false), g_sequence_number(0) { }
 };
 
 
