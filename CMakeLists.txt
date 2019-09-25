@@ -95,6 +95,7 @@ target_sources(leveldb
     "${PROJECT_SOURCE_DIR}/util/mutexlock.h"
     "${PROJECT_SOURCE_DIR}/util/coding.h"
     "${PROJECT_SOURCE_DIR}/util/coding.cc"
+    "${PROJECT_SOURCE_DIR}/util/comparator.cc"
     "${PROJECT_SOURCE_DIR}/port/port_stdcxx.h"
 
     "${LEVELDB_PUBLIC_INCLUDE_DIR}/db.h"
@@ -157,6 +158,7 @@ if(LEVELDB_INSTALL)
   include(GNUInstallDirs)
   install(
     FILES
+      "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/comparator.h"
       "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/db.h"
       "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/options.h"
       "${PROJECT_SOURCE_DIR}/${LEVELDB_PUBLIC_INCLUDE_DIR}/slice.h"

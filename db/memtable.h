@@ -9,8 +9,11 @@
 
 namespace leveldb {
 
+class InternalKeyCompactor;
+
 class MemTable {
 public: 
+    explicit MemTable(const InternalKeyCompactor& compactor);
     void Add(SequenceNumber sequence, ValueType type, const Slice& key, const Slice& value);
 
 private: 
@@ -21,6 +24,7 @@ private:
     };
 
     typedef SkipList<const char*, KeyCompactor> Table;
+    KeyCompactor comp;
     Arena arena;
     Table table;
 

@@ -15,7 +15,7 @@ struct DBImple::Writer {
     explicit Writer(port::Mutex* mu) : cv(mu) { }
 };
 
-DBImple::DBImple(const Options& options, const std::string& dbName) {
+DBImple::DBImple(const Options& options, const std::string& dbName) : memtab(nullptr) {
 
 }
 
@@ -42,6 +42,10 @@ Status DB::Put(const WriteOptions& wOptions, const Slice& key, const Slice& valu
 
 Status DB::Open(const Options& options, const std::string& dbName, DB** dbPtr) {
     Status s;
+    DBImple* impl = new DBImple(options, dbName);
+    if(impl->memtab == nullptr) {
+        //impl->memtab = new MemTable()
+    }
     
     return s;
 }
@@ -55,6 +59,10 @@ Status DBImple::Write(const WriteOptions& options, WriteBatchS* batch) {
     if(batch != nullptr) {
         batch->SetSequenceNumber(lastSequence + 1);
     }
+
+    lastSequence += batch->Count();
+
+
 
     return s;
 }

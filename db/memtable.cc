@@ -3,6 +3,9 @@
 
 namespace leveldb {
 
+MemTable::MemTable(const InternalKeyCompactor& compactor)
+    : comp(compactor), table(comp, &arena) { }
+
 static Slice GetSliceByLenPrefixed(const char* data) {
     uint32_t len = 0;
     const char* ptr = data;

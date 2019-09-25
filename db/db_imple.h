@@ -4,8 +4,12 @@
 #include <deque>
 #include "leveldb/db.h"
 #include "port/port_stdcxx.h"
+#include "db/memtable.h"
+#include "db/db_format.h"
 
 namespace leveldb {
+
+class MemTable;
 
 class DBImple : public DB {
 public: 
@@ -24,7 +28,10 @@ private:
     port::Mutex mu;
 
     struct Writer;
+
+    const InternalKeyCompactor internalComp;
     
+    MemTable* memtab;
 
     DBImple(const DBImple&);
     void operator=(const DBImple&);
