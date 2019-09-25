@@ -6,13 +6,15 @@
 
 namespace leveldb {
 
+class Comparator;
+
 enum compressionType {
     kNoCompression      = 0x0,
     kSnappyCompression  = 0x1
 };
 
 struct Options {
-    //const Comparator* _comparator;
+    const Comparator* _comparator;
 
     // if true, the database will be created if it is missing. Default: false
     bool create_if_missing;

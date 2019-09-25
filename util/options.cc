@@ -1,8 +1,10 @@
 #include "leveldb/options.h"
+#include "leveldb/comparator.h"
 
 namespace leveldb {
 
-Options::Options() : create_if_missing(false),
+Options::Options() : _comparator(ByteComparator()),
+                     create_if_missing(false),
                      error_if_exists(false), 
                      error_checks(false),
                      wirte_buffer_size(4 << 20),
